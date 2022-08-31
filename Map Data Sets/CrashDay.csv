@@ -1,0 +1,13 @@
+object_name,object_class,location_x,location_y,location_z,rotation_pitch,rotation_yaw,rotation_roll,scale_x,scale_y,scale_z,spawns,spawncount
+"vogelchen01_Cue_5",AmbientSound,44080.83,-15125.67,3268.578,,,,,,,,
+"vogelchen03_Cue2_8",AmbientSound,52816.94,-17610.79,4881.646,,,,,,,,
+"vogelchen03_Cue_2",AmbientSound,18005.27,17436.55,4939.097,,,,,,,,
+"WindAmbience_Cue_20",AmbientSound,35963.21,-3502.781,3518.735,,,,,,,,
+"windloop_Cue2_14",AmbientSound,48743.96,4024.613,10807.16,,,,,,,,
+"windloop_Cue3_17",AmbientSound,-1116.469,18694.5,7724.797,,,,,,,,
+"windloop_Cue_11",AmbientSound,49279.33,-6436.94,10274.83,,,,,,,,
+"SkySphereBlueprint",BP_Sky_Sphere_C,43973.46,596.1254,-52.41413,,,,2,2,2,,
+"LightSource",DirectionalLight,44800.2,-81.40973,463.4736,-66.65635,7.837631,-6.601641,,,,,
+"GlobalPostProcess",PostProcessVolume,44799.2,-0.00769,463.4736,,,,4.250506,2.065665,2.059546,,
+"SkyLight_1",SkyLight,44799.2,-166.1943,463.4736,,,,,,,,
+"Simple_rock_168",StaticMeshActor,28943.38,-2521.227,872.7044,10.9983,-53.02902,-7.867239,44,44,44,,

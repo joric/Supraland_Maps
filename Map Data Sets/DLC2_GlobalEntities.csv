@@ -1,0 +1,8 @@
+object_name,object_class,location_x,location_y,location_z,rotation_pitch,rotation_yaw,rotation_roll,scale_x,scale_y,scale_z,spawns,spawncount
+"AtmosphericFog_0",AtmosphericFog,0,0,11930,,,,,,,,
+"BP_SupraSkySphere_3",BP_SupraSkySphere_C,-17564.29,-59935.62,81287.58,,,,,,,,
+"SunLightNoon",DirectionalLight,0,0,11930,-83.35964,0,0,,,,,
+"ExponentialHeightFog_1",ExponentialHeightFog,,,,,,,,,,,
+"HintTextEngine_2",HintTextEngine_C,0,0,12043.09,,,,,,,,
+"MusicEngineV2_4",MusicEngineV2_C,0,0,12170,,,,,,,,
+"GlobalPostProcess",PostProcessVolume,0,0,11930,,,,,,,,

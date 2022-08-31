@@ -1,0 +1,2 @@
+object_name,object_class,location_x,location_y,location_z,rotation_pitch,rotation_yaw,rotation_roll,scale_x,scale_y,scale_z,spawns,spawncount
+"InstancedFoliageActor_0",InstancedFoliageActor,-40,0.00390625,0,0,0.0001639245,0,,,,,
