@@ -13,6 +13,7 @@ for (var z = 0; z <= mapMaxZoom; z++) {
 
 var mapTileGrid = new ol.tilegrid.TileGrid({
   tileSize: [tileWidth, tileHeight],
+  origin: [1, 1, 1],
   extent: tileExtent,
   minZoom: mapMinZoom,
   resolutions: mapResolutions
@@ -23,7 +24,7 @@ var layer = new ol.layer.Tile({
     projection: 'PIXELS',
     tileGrid: mapTileGrid,
     tilePixelRatio: 1.00000000,
-    url: "{z}/{x}/{y}.png",
+    url: "imgs/maptiles_SL1/{z}/{x}/{y}.png",
   })
 });
 
