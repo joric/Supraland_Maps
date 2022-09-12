@@ -20,6 +20,7 @@ crs.zoom = function (scale) { return Math.log(scale * mapMinResolution) / Math.L
 var map = new L.Map('map', {
     maxZoom: mapMaxZoom,
     minZoom: mapMinZoom,
+    zoomSnap: 0.1,
     crs: crs
 });
 
@@ -30,7 +31,8 @@ var layer = L.tileLayer(tilePath, {
     maxZoom: mapMaxZoom,
     tileSize: L.point(tileSize.x, tileSize.y),
     noWrap: true,
-    tms: false
+    tms: false,
+    nativeZooms: [0, 1, 2, 3, 4]
 }).addTo(map);
 
 
@@ -40,5 +42,6 @@ map.fitBounds([
         crs.unproject(L.point(mapExtent.topLeft.y, mapExtent.topLeft.x))
     ]);
 	
+var sidebar = L.control.sidebar('sidebar').addTo(map);
 L.control.mousePosition().addTo(map)
 L.marker([0, 0]).addTo(map);
