@@ -26,7 +26,7 @@ var map = new L.Map('map', {
 
 
 //Create the map image base layer
-var layer = L.tileLayer(tilePath, {
+var map_image_layer = L.tileLayer(tilePath, {
     minZoom: mapMinZoom,
     maxZoom: mapMaxZoom,
     tileSize: L.point(tileSize.x, tileSize.y),
@@ -45,3 +45,51 @@ map.fitBounds([
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 L.control.mousePosition().addTo(map)
 L.marker([0, 0]).addTo(map);
+
+
+
+
+// Note: If you use the same object reference in multiple layer entries, only the last one is actually visible.
+var baseMaps = [
+    { 
+        groupName : "Change Base Map",
+        expanded : false,
+        layers    : {
+            "Supraland"                     :  map
+        }
+    }                            
+];    
+
+
+var overlays = [
+     {
+        groupName : "Map Image",
+        expanded  : true,
+        layers    : { "Map Image" : map_image_layer }
+     } /* ,
+     {
+        groupName : "Collectables",
+        expanded  : true,
+        layers    : { 
+            "Chests"         : layer,
+            "Coins"          : layer,
+            "Hero Items"     : layer
+        }    
+     }, {
+        groupName : "Enemy Spawners",
+        expanded  : true,
+        layers    : { 
+            "Wooden Graves"  : layer,
+            "Stone Graves"   : layer,
+            "Volcanoes"      : layer
+        }    
+     }   */                    
+];
+
+
+
+
+var control = L.Control.styledLayerControl(baseMaps, overlays, { container_width : "100%", container_maxHeight : "100%", group_maxHeight : "100%", exclusive : false});
+map.addControl(control);
+control._container.remove();
+document.getElementById('layers').appendChild(control.onAdd(map));
