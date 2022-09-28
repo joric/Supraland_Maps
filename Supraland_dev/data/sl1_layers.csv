@@ -1,0 +1,12 @@
+group,name,onByDefault,classesToInclude
+Collectables,Chests,TRUE,Chest_C
+Collectables,Coins,TRUE,
+Collectables,Hero Items,,
+Upgrades,Chest Items,,
+Upgrades,Shop Items,,
+Enemy Spawners,Wooden Graves,,
+Enemy Spawners,Stone Graves,,
+Enemy Spawners,Volcanoes,,
+Fast Travel,Pipes,,
+Fast Travel,Jump Pads,,
+Miscellaneous,Plumbuses,,

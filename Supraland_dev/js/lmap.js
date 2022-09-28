@@ -1,4 +1,4 @@
-var tilePath   = 'imgs/maptiles_SL1/{z}/{x}/{y}.png';
+var tilePath   = 'img/SL1_tiles/{z}/{x}/{y}.png';
 var tileSize   = {x: 512, y: 512};
 var mapExtent  = {topLeft: {x: -74515, y: -85540}, bottomRight: {x: 85540, y: 100528}};
 var mapScale   = {x: 1/21.3678, y: 1/21.3678};
@@ -7,6 +7,8 @@ var mapMinZoom = 0;
 var mapMaxZoom = 4;
 var mapMaxResolution = 1.00000000;
 var mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution;
+
+var mapLayers = {};
 
 
 //Create a coordinate system for the map
@@ -21,12 +23,33 @@ var map = new L.Map('map', {
     maxZoom: mapMaxZoom,
     minZoom: mapMinZoom,
     zoomSnap: 0.1,
-    crs: crs
+    crs: crs,
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+        position: 'topleft'
+    },
+    contextmenu: true,
+    contextmenuWidth: 140,
+	contextmenuItems: [{
+	    text: 'Show coordinates',
+	    callback: showCoordinates
+	}, {
+	    text: 'Center map here',
+	    callback: centerMap
+	}, '-', {
+	    text: 'Zoom in',
+	    icon: 'images/zoom-in.png',
+	    callback: zoomIn
+	}, {
+	    text: 'Zoom out',
+	    icon: 'images/zoom-out.png',
+	    callback: zoomOut
+	}]
 });
 
 
 //Create the map image base layer
-var map_image_layer = L.tileLayer(tilePath, {
+var map_image_layer = L.tileLayer.canvas(tilePath, {
     minZoom: mapMinZoom,
     maxZoom: mapMaxZoom,
     tileSize: L.point(tileSize.x, tileSize.y),
@@ -34,6 +57,7 @@ var map_image_layer = L.tileLayer(tilePath, {
     tms: false,
     nativeZooms: [0, 1, 2, 3, 4]
 }).addTo(map);
+mapLayers.baseImage = map_image_layer;
 
 
 //Adjust map for initial view
@@ -43,53 +67,21 @@ map.fitBounds([
     ]);
 	
 var sidebar = L.control.sidebar('sidebar').addTo(map);
-L.control.mousePosition().addTo(map)
-L.marker([0, 0]).addTo(map);
+L.control.mousePosition().addTo(map);
 
+function showCoordinates (e) {
+	let ll = e.latlng;
+	alert("X = " + ll.lat + "\nY = " + ll.lng);
+}
 
+function centerMap (e) {
+	map.panTo(e.latlng);
+}
 
+function zoomIn (e) {
+	map.zoomIn();
+}
 
-// Note: If you use the same object reference in multiple layer entries, only the last one is actually visible.
-var baseMaps = [
-    { 
-        groupName : "Change Base Map",
-        expanded : false,
-        layers    : {
-            "Supraland"                     :  map
-        }
-    }                            
-];    
-
-
-var overlays = [
-     {
-        groupName : "Map Image",
-        expanded  : true,
-        layers    : { "Map Image" : map_image_layer }
-     } /* ,
-     {
-        groupName : "Collectables",
-        expanded  : true,
-        layers    : { 
-            "Chests"         : layer,
-            "Coins"          : layer,
-            "Hero Items"     : layer
-        }    
-     }, {
-        groupName : "Enemy Spawners",
-        expanded  : true,
-        layers    : { 
-            "Wooden Graves"  : layer,
-            "Stone Graves"   : layer,
-            "Volcanoes"      : layer
-        }    
-     }   */                    
-];
-
-
-
-
-var control = L.Control.styledLayerControl(baseMaps, overlays, { container_width : "100%", container_maxHeight : "100%", group_maxHeight : "100%", exclusive : false});
-map.addControl(control);
-control._container.remove();
-document.getElementById('layers').appendChild(control.onAdd(map));
+function zoomOut (e) {
+	map.zoomOut();
+}
