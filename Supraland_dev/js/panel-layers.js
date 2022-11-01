@@ -380,7 +380,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		this._section = this._form = L.DomUtil.create('form', this.className + '-list');
 
-		this._updateHeight();
+		//this._updateHeight();
 
 		if (this.options.collapsed) {
 
@@ -419,9 +419,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	_updateHeight: function (h) {
 		h = h || this._map.getSize().y;
 
-		if (this.options.compact)
-			this._form.style.maxHeight = (h - this.options.compactOffset) + 'px';
-		else
+		//if (this.options.compact)
+		//	this._form.style.maxHeight = (h - this.options.compactOffset) + 'px';
+		//else
 			this._form.style.height = h + 'px';
 	},
 

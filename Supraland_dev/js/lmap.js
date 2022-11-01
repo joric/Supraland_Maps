@@ -11,7 +11,7 @@ var mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution;
 var mapLayers = {};
 
 
-//Create a coordinate system for the map
+// Create a coordinate system for the map
 var crs = L.CRS.Simple;
 crs.transformation = new L.Transformation(mapScale.x, mapOrigin.x, mapScale.y, mapOrigin.y);
 crs.scale = function (zoom) { return Math.pow(2, zoom) / mapMinResolution; };
@@ -28,6 +28,7 @@ var map = new L.Map('map', {
     fullscreenControlOptions: {
         position: 'topleft'
     },
+    fadeAnimation: false,
     contextmenu: true,
     contextmenuWidth: 140,
 	contextmenuItems: [{
@@ -55,12 +56,14 @@ var map_image_layer = L.tileLayer.canvas(tilePath, {
     tileSize: L.point(tileSize.x, tileSize.y),
     noWrap: true,
     tms: false,
+    updateInterval: -1,
+    keepBuffer: 16,
     nativeZooms: [0, 1, 2, 3, 4]
 }).addTo(map);
 mapLayers.baseImage = map_image_layer;
 
 
-//Adjust map for initial view
+// Adjust map for initial view
 map.fitBounds([
         crs.unproject(L.point(mapExtent.bottomRight.y, mapExtent.bottomRight.x)),
         crs.unproject(L.point(mapExtent.topLeft.y, mapExtent.topLeft.x))
@@ -69,6 +72,10 @@ map.fitBounds([
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 L.control.mousePosition().addTo(map);
 
+
+
+
+// Context menu functions
 function showCoordinates (e) {
 	let ll = e.latlng;
 	alert("X = " + ll.lat + "\nY = " + ll.lng);
