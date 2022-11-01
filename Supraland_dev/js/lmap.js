@@ -1,12 +1,14 @@
+var tileMinSet = 0;
+var tileMaxSet = 4;
 var tilePath   = 'img/SL1_tiles/{z}/{x}/{y}.png';
 var tileSize   = {x: 512, y: 512};
 var mapExtent  = {topLeft: {x: -74515, y: -85540}, bottomRight: {x: 85540, y: 100528}};
 var mapScale   = {x: 1/21.3678, y: 1/21.3678};
 var mapOrigin  = {x: 74515 * mapScale.x, y: 89504 * mapScale.y};
 var mapMinZoom = 0;
-var mapMaxZoom = 4;
+var mapMaxZoom = 6;
 var mapMaxResolution = 1.00000000;
-var mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution;
+var mapMinResolution = Math.pow(2, tileMaxSet) * mapMaxResolution;
 
 var mapLayers = {};
 
@@ -23,6 +25,7 @@ var map = new L.Map('map', {
     maxZoom: mapMaxZoom,
     minZoom: mapMinZoom,
     zoomSnap: 0.1,
+    zoomDelta: 0.5,
     crs: crs,
     fullscreenControl: true,
     fullscreenControlOptions: {
@@ -51,14 +54,16 @@ var map = new L.Map('map', {
 
 //Create the map image base layer
 var map_image_layer = L.tileLayer.canvas(tilePath, {
-    minZoom: mapMinZoom,
-    maxZoom: mapMaxZoom,
+    //minZoom: mapMinZoom,
+    //maxZoom: mapMaxZoom,
     tileSize: L.point(tileSize.x, tileSize.y),
     noWrap: true,
     tms: false,
     updateInterval: -1,
     keepBuffer: 16,
-    nativeZooms: [0, 1, 2, 3, 4]
+    maxNativeZoom: 4,
+    nativeZooms: [0, 1, 2, 3, 4],
+    edgeBufferTiles: 2
 }).addTo(map);
 mapLayers.baseImage = map_image_layer;
 
