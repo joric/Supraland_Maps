@@ -23,7 +23,7 @@ if (currentMapName=='DLC2') {
   //let mapSize = {width: 8192, height: 5500}
   //let pxTrans = { dx: -73730, dy: -29880, m: 18 }
   var tilePath   = 'img/DLC2_tiles/{z}/{x}/{y}.png';
-  var mapExtent  = {topLeft: {x: -74515, y: -85540}, bottomRight: {x: 85540, y: 100528}};
+  var mapExtent  = {topLeft: {x: -74515, y: -85540}, bottomRight: {x: 35540, y: 100528}};
   var mapScale   = {x: 1/18.0, y: 1/18.0};
   var mapOrigin  = {x: 73730 * mapScale.x, y: 93354 * mapScale.y};
 }

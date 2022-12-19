@@ -82,7 +82,7 @@ let total_chests = 0;
 
 for (area of [
   'DLC2_SecretLavaArea',
-  'DLC2_Complete',
+  //'DLC2_Complete',
   /*
   'DLC2_Area0',
   'DLC2_Area0_Below',
@@ -136,12 +136,30 @@ for (area of [
           let r = parseFloat(o.rotation_roll);
 
           let info = area + '<br>' + JSON.stringify(o, null, 2).replaceAll('\n','<br>').replaceAll(' ','&nbsp;');
-
-          //o.object_name + '<br>' + o.spawns + '<br>' + o.spawncount + '<br>(' + x + ',' + y + ')<br>' + filename;
-
           let title = o.spawns + ' +'+ o.spawncount;
 
-          let lat = parseInt(y, 10), lng = parseInt(x, 10);
+          if (area=='DLC2_SecretLavaArea') {
+
+            // ? nothing seems to work
+
+            //var transform = new THREE.Euler(Math.Pi/2,0,0, 'XYZ');
+            //var transform = new THREE.Euler( toRad(r), toRad(p), toRad(w), 'XYZ' );
+
+            var transform = new THREE.Euler(0,0,0, 'XYZ');
+
+            var v = new THREE.Vector3(x, y, z);
+
+            v.applyEuler(transform);
+
+            x = -v.x;
+            y = v.y;
+            z = v.z;
+
+          }
+
+          let lat = y;
+          let lng = x;
+
           L.marker([lat, lng], {icon: chestIcon, title: title}).addTo(map).bindPopup(info);
         }
       }
