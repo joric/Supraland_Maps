@@ -78,7 +78,7 @@ static _createMarker(data, icon, layer, title, popup, imageFolder, spoilerFree) 
 */
 
 
-let chests = 0;
+let total_chests = 0;
 
 for (area of [
   'DLC2_SecretLavaArea',
@@ -102,7 +102,7 @@ for (area of [
 */
   ]) {
 
-  var filename = '../Map Data Sets/' + area + '.csv';
+  var filename = 'data/' + area + '.csv';
 
   var loadedCsv = Papa.parse(filename, { download: true, header: true, complete: function(results, filename) {
       //console.log(r);
@@ -115,6 +115,8 @@ for (area of [
         iconAnchor: [16,16],
       });
 
+      let chests = 0;
+
       for (o of results.data) {
         if (o.object_name=='') {
           continue;
@@ -123,6 +125,7 @@ for (area of [
         if (o.object_class.endsWith('Chest_C')) {
 
           chests += 1;
+          total_chests += 1;
 
           let x = parseFloat(o.location_x);
           let y = parseFloat(o.location_y);
@@ -142,7 +145,7 @@ for (area of [
           L.marker([lat, lng], {icon: chestIcon, title: title}).addTo(map).bindPopup(info);
         }
       }
-      console.log(area, 'chests', chests);
+      console.log(area, 'chests', chests, 'total chests', total_chests);
     }
   });
 }
