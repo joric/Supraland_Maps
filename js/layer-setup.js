@@ -151,7 +151,7 @@ for (area of [
 
             v.applyEuler(transform);
 
-            x = -v.x;
+            x = v.x;
             y = v.y;
             z = v.z;
 
