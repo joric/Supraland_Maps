@@ -82,7 +82,7 @@ let total_chests = 0;
 
 for (area of [
   'DLC2_SecretLavaArea',
-  //'DLC2_Complete',
+  'DLC2_Complete',
   /*
   'DLC2_Area0',
   'DLC2_Area0_Below',
