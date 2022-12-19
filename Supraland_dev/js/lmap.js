@@ -84,7 +84,7 @@ var map_image_layer = L.tileLayer.canvas(tilePath, {
     maxNativeZoom: 4,
     nativeZooms: [0, 1, 2, 3, 4],
     edgeBufferTiles: 2,
-    attribution: '<a href="https://github.com/joric/supraland" target="_blank">Joric</a>',
+    attribution: '<a href="https://github.com/joric/supraland/tree/joric" target="_blank">Joric</a>',
 }).addTo(map);
 
 mapLayers.baseImage = map_image_layer;
