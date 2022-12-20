@@ -103,7 +103,7 @@ def power_of(num, base):
     return num == 1
 
 
-def generate(image, outpath, zoom_level, resize_width):
+def generate(image, outpath, zoom_level, resize_width, format='png'):
     """
     generates map tiles from large image
     """
@@ -130,7 +130,7 @@ def generate(image, outpath, zoom_level, resize_width):
     outpath.mkdir(exist_ok=True)
 
     # Remove existing children
-    for child in outpath.rglob('*.png'):
+    for child in outpath.rglob('*.'+format):
         child.unlink()
 
     for x in range(num_tiles):
@@ -142,7 +142,7 @@ def generate(image, outpath, zoom_level, resize_width):
             bottom = top + tile_width
             tile = image.crop([left, top, right, bottom])
             tile = tile.resize([resize_width, resize_width])
-            tile_path = outpath.joinpath(f'{x}/{y}.png')
+            tile_path = outpath.joinpath(f'{x}/{y}.'+format)
             tile.save(tile_path)
             print('.', end='')
             sys.stdout.flush()
@@ -195,6 +195,8 @@ def create_parser(prog_name):
                         help='dimension in pixels for outputted tiles (default 256px)')
     parser.add_argument('-q', '--quiet', action='store_true', default=False,
                         help='suppress all output from program (useful for integrating into larger projects)')
+    parser.add_argument('-t', '--format', default='png',
+                        help='output format (png or jpeg)')
     return parser
 
 
@@ -211,6 +213,7 @@ def main():
     zoom_min, zoom_max = args.zoom_level
     output_folder = args.output_folder
     resize_width = args.resize_width
+    format = args.format
     setup_logging(args.quiet)
 
     # open the image
@@ -234,7 +237,7 @@ def main():
     # if multiple zoom levels, run them all
     for z in range(zoom_min, zoom_max+1):
         LOG.info('generate zoom level %d' % z)
-        generate(image, output_path, z, resize_width)
+        generate(image, output_path, z, resize_width, format)
     # that's it!
     LOG.info('FINISHED!')
 

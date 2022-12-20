@@ -20,12 +20,18 @@ if (currentMapName == 'SL1') {
 }
 
 if (currentMapName=='DLC2') {
+
+  x = 73730;
+  y = 93354;
+  scale = 1/18.0;
+
+
   //let mapSize = {width: 8192, height: 5500}
   //let pxTrans = { dx: -73730, dy: -29880, m: 18 }
   var tilePath   = 'img/DLC2_tiles/{z}/{x}/{y}.png';
-  var mapExtent  = {topLeft: {x: -74515, y: -85540}, bottomRight: {x: 35540, y: 100528}};
-  var mapScale   = {x: 1/18.0, y: 1/18.0};
-  var mapOrigin  = {x: 73730 * mapScale.x, y: 93354 * mapScale.y};
+  var mapExtent  = {topLeft: {x: 0, y: 0}, bottomRight: {x: x/4, y: y/4}};
+  var mapScale   = {x: scale, y: scale};
+  var mapOrigin  = {x: x * mapScale.x, y: y * mapScale.y};
 }
 
 
@@ -87,7 +93,7 @@ var map_image_layer = L.tileLayer.canvas(tilePath, {
     maxNativeZoom: 4,
     nativeZooms: [0, 1, 2, 3, 4],
     edgeBufferTiles: 2,
-    attribution: '<a href="https://github.com/joric/supraland/tree/joric" target="_blank">Joric</a>',
+    attribution: '<a href="https://github.com/joric/Supraland_Maps/tree/joric" target="_blank">Joric</a>',
 
 
     //[top,left] [bottom,right]. weirdly bottom needs *64 for some reason

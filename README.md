@@ -1,3 +1,3 @@
 # Supraland
 
-* Live demo: https://joric.github.io/supraland
+* Live demo: see url in the repository description
