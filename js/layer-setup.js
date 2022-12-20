@@ -8,7 +8,7 @@ document.getElementById('layers').appendChild(layerControl .onAdd(map));
 layerControl.addBaseLayer( map_image_layer, "Supraland", {groupName : "Change Base Layer", expanded: false} );
 
 var layerDefs = Papa.parse("data/sl1_layers.csv", { download: true, header:true, complete: function(r, f) {
-    console.log(r);
+    //console.log(r);
     for(x=0;x<r.data.length;x++){
         if(r.data[x].name==undefined) { continue };
         let tLayer = L.layerGroup();
@@ -18,7 +18,8 @@ var layerDefs = Papa.parse("data/sl1_layers.csv", { download: true, header:true,
     };
 }});
 
-console.log('mapLayers', mapLayers);
+//console.log('mapLayers', mapLayers);
+
 /*
 class Icons {
     static _icons = {};
@@ -99,7 +100,7 @@ for (area of [
   'DLC2_Skybox_Intro',
   'DLC2_Skybox_Main',
   'DLC2_Splash',
-*/
+  */
   ]) {
 
   var filename = 'data/' + area + '.csv';
@@ -114,6 +115,7 @@ for (area of [
         iconSize: [32,32],
         iconAnchor: [16,16],
       });
+
 
       let chests = 0;
 
@@ -145,11 +147,49 @@ for (area of [
             //var transform = new THREE.Euler(Math.Pi/2,0,0, 'XYZ');
             //var transform = new THREE.Euler( toRad(r), toRad(p), toRad(w), 'XYZ' );
 
-            var transform = new THREE.Euler(0,0,0, 'XYZ');
+            root = {  //     "Outer": "SM_Pedestal_02a_117", root for Chest2_2
+              "RelativeLocation": {
+                "X": -1975.2234,
+                "Y": 2441.0225,
+                "Z": 1599.9995
+              },
+              "RelativeRotation": {
+                "Pitch": 0.0,
+                "Yaw": 89.99993,
+                "Roll": 0.0
+              },
+              "RelativeScale3D": {
+                "X": 0.9971247,
+                "Y": 0.9971248,
+                "Z": 0.49248013
+              }
+            }
+
+            function getVec(v) {
+              return new THREE.Vector3(v['X'], v['Y'], v['Z']);
+            }
+
+            function getRot(v) {
+              return new THREE.Vector3(toRad(v['Pitch']), toRad(v['Yaw']), toRad(v['Roll']));
+            }
+
+            loc = getVec(root['RelativeLocation']);
+            rot = getRot(root['RelativeRotation']);
+            scale = getVec(root['RelativeScale3D']);
+
+            //console.log(loc,rot,scale);
 
             var v = new THREE.Vector3(x, y, z);
 
-            v.applyEuler(transform);
+            var transform = new THREE.Euler(rot['x'], rot['z'], rot['y'], 'XYZ');
+
+            //console.log(rot);
+
+
+            //v.multiply(scale);
+
+            //v.add(loc);
+            //v.applyEuler(transform);
 
             x = v.x;
             y = v.y;
@@ -160,10 +200,14 @@ for (area of [
           let lat = y;
           let lng = x;
 
-          L.marker([lat, lng], {icon: chestIcon, title: title}).addTo(map).bindPopup(info);
+          L.marker([lat, lng], {icon: chestIcon, title: title}).addTo(map)
+          .bindPopup(info)
+          //.bindTooltip(function (e) { return String(e.options.title);}, {permanent: true, opacity: 1.0})
+          ;
+
         }
       }
-      console.log(area, 'chests', chests, 'total chests', total_chests);
+      console.log(area, 'chests', chests, '/', total_chests);
     }
   });
 }

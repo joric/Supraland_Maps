@@ -42,10 +42,10 @@ crs.zoom = function (scale) { return Math.log(scale * mapMinResolution) / Math.L
 
 //Create the map
 var map = new L.Map('map', {
-    maxZoom: mapMaxZoom,
-    minZoom: mapMinZoom,
-    zoomSnap: 0.1,
-    zoomDelta: 0.5,
+    //maxZoom: mapMaxZoom,
+    //minZoom: mapMinZoom,
+    //zoomSnap: 0.1,
+    //zoomDelta: 0.5,
     crs: crs,
     fullscreenControl: true,
     fullscreenControlOptions: {
@@ -68,14 +68,17 @@ var map = new L.Map('map', {
       text: 'Zoom out',
       icon: 'img/zoom-out.png',
       callback: zoomOut
-  }]
+  }],
+
 });
 
+// bounds for net::ERR_FILE_NOT_FOUND
+// https://stackoverflow.com/questions/49066689/leaflet-misalignment-of-tiles-and-negative-y-coordinates
 
 //Create the map image base layer
 var map_image_layer = L.tileLayer.canvas(tilePath, {
-    //minZoom: mapMinZoom,
-    //maxZoom: mapMaxZoom,
+    minZoom: mapMinZoom,
+    maxZoom: mapMaxZoom,
     tileSize: L.point(tileSize.x, tileSize.y),
     noWrap: true,
     tms: false,
@@ -85,6 +88,11 @@ var map_image_layer = L.tileLayer.canvas(tilePath, {
     nativeZooms: [0, 1, 2, 3, 4],
     edgeBufferTiles: 2,
     attribution: '<a href="https://github.com/joric/supraland/tree/joric" target="_blank">Joric</a>',
+
+
+    //[top,left] [bottom,right]. weirdly bottom needs *64 for some reason
+    bounds: [[-512*128, -512*128], [512*64, 512*128]]
+
 }).addTo(map);
 
 mapLayers.baseImage = map_image_layer;
@@ -101,6 +109,11 @@ map.fitBounds([
 // tried to get rid of 0/-1/0.png net::ERR_FILE_NOT_FOUND
 //let mapSW = [1, 16384];
 //let mapNE = [16384, 1];
+//map.setMaxBounds(new L.LatLngBounds(map.unproject(mapSW, map.getMaxZoom()),map.unproject(mapNE, map.getMaxZoom())));
+
+
+//let mapSW = [1, 8192];
+//let mapNE = [8192, 1];
 //map.setMaxBounds(new L.LatLngBounds(map.unproject(mapSW, map.getMaxZoom()),map.unproject(mapNE, map.getMaxZoom())));
 
 
